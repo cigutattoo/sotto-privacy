@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sotto — 隐私政策</title>
+<meta name="description" content="Sotto（低声）隐私政策：端到端加密通讯，不收集明文消息，不记录崩溃日志">
+<style>
+  :root {
+    --bg: #0B0F1A;
+    --surface: #141A2B;
+    --card: #1A2138;
+    --text: #EDEEF3;
+    --text-muted: #9AA0B4;
+    --accent: #E8A838;
+    --accent-soft: rgba(232, 168, 56, 0.12);
+    --border: rgba(255,255,255,0.06);
+    --link: #F0C17A;
+    --good: #4ADE80;
+    --warn: #F87171;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F7F8FB;
+      --surface: #FFFFFF;
+      --card: #FFFFFF;
+      --text: #0B0F1A;
+      --text-muted: #5A6070;
+      --border: rgba(11,15,26,0.08);
+      --link: #B07810;
+      --accent-soft: rgba(232, 168, 56, 0.1);
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  header {
+    text-align: center;
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .logo {
+    width: 56px; height: 56px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .tagline {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .last-updated {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 4px 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  section {
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text);
+  }
+  p {
+    margin-bottom: 14px;
+    color: var(--text);
+    font-size: 15px;
+  }
+  ul, ol {
+    margin: 12px 0 16px 20px;
+  }
+  li {
+    margin-bottom: 8px;
+    color: var(--text);
+    font-size: 15px;
+  }
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 32px 0 40px;
+  }
+  .hero-card h3 {
+    color: var(--accent);
+    border: none;
+    margin-top: 0;
+  }
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .collect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  @media (max-width: 520px) {
+    .collect-grid { grid-template-columns: 1fr; }
+  }
+  .collect-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .collect-item .icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .collect-item.collects .icon {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--warn);
+  }
+  .collect-item.doesnt .icon {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--good);
+  }
+  .collect-item .label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .collect-item .desc {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: var(--surface);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 500; white-space: nowrap; }
+  a {
+    color: var(--link);
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
+  a:hover { border-bottom-style: solid; }
+  footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  footer .links { margin-top: 12px; }
+  footer a {
+    color: var(--text-muted);
+    border: none;
+    margin: 0 12px;
+  }
+  footer a:hover { color: var(--text); }
+  .contact-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 20px;
+  }
+  .contact-box .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+  .contact-box .row:last-child { border-bottom: none; }
+  .contact-box .row span:first-child { color: var(--text-muted); }
+  .contact-box .row span:last-child { font-weight: 500; }
+  .anchor-ids { display: none; }
+  details {
+    margin: 12px 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  details summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  details summary::after {
+    content: "+";
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  details[open] summary::after { content: "−"; }
+  details > *:not(summary) {
+    padding: 0 20px 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <svg class="logo" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="56" height="56" rx="14" fill="#0B0F1A"/>
+    <circle cx="28" cy="28" r="15" stroke="#E8A838" stroke-width="3" fill="none" stroke-dasharray="70 30"/>
+    <circle cx="28" cy="28" r="6" fill="#E8A838"/>
+  </svg>
+  <h1>隐私政策</h1>
+  <p class="tagline">Sotto（低声）— 端到端加密通讯</p>
+  <span class="last-updated">最后更新：2026 年 11 月 1 日</span>
+</header>
+
+<section>
+  <div class="hero-card">
+    <h3>一句话承诺</h3>
+    <p><strong>Sotto 看不到你的任何消息内容。</strong>你的消息、语音、文件在离开设备前已经完全加密，中继服务器只负责路由密文信封，无法解密也无法审查。</p>
+  </div>
+</section>
+
+<section>
+  <h2>我们收集什么</h2>
+  <p>Sotto 的设计目标是<strong>最小化数据收集</strong>。下表是 App 运行过程中经过网络传输的全部数据：</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>数据类型</th><th>是否明文</th><th>用途</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>消息密文（信封 body）</td><td><strong>否</strong> — E2EE 密文</td><td>中继仅做存储转发，无法读取</td></tr>
+      <tr><td>发送方 / 接收方公开标识符</td><td>是（伪匿名）</td><td>消息路由，不关联真实身份</td></tr>
+      <tr><td>消息 ID / 创建时间 / TTL</td><td>是</td><td>去重、排序、过期清理</td></tr>
+      <tr><td>订阅验证请求（purchaseToken）</td><td>是</td><td>Google Play 订阅权益校验</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>中继服务器可见的信封结构</h3>
+  <p>中继收到的每一条消息是一个 JSON 信封，字段如下：</p>
+  <pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:13px;color:var(--text-muted);overflow-x:auto;margin:12px 0;">{
+  "id":        "8f3a...c2d1",       // UUID，去重用
+  "from":      "key_abc...xyz",    // 发送方公开标识符
+  "to":        "key_def...uvw",    // 接收方公开标识符
+  "body":      "AQID...base64",    // E2EE 密文 blob
+  "ttl":       86400,              // 存活秒数
+  "createdAt": "2026-11-17T08:00:00Z"
+}</pre>
+  <p><strong>关键点</strong>：<code>body</code> 字段是 AEAD 加密后的完全密文，只有持有对应私钥的接收方才能解密。中继、开发者、第三方均无法读取。</p>
+</section>
+
+<section>
+  <h2>我们<strong>不</strong>收集什么</h2>
+  <p>以下是 Sotto 明确排除的常见数据收集项：</p>
+
+  <div class="collect-grid">
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">崩溃日志</div>
+        <div class="desc">无 Firebase Crashlytics / Sentry / 任何遥测 SDK</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">使用分析</div>
+        <div class="desc">无 Analytics / Amplitude / Mixpanel</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">设备标识符</div>
+        <div class="desc">不读取 IMEI、ADID、Android ID</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">位置信息</div>
+        <div class="desc">App 不请求也不收集地理位置</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">通讯录</div>
+        <div class="desc">不读取联系人列表</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">IP 地址</div>
+        <div class="desc">relay 运行在 Cloudflare Worker 上，不记录客户端 IP</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">真实身份</div>
+        <div class="desc">不要求手机号、邮箱、实名认证</div>
+      </div>
+    </div>
+    <div class="collect-item doesnt">
+      <div class="icon">✓</div>
+      <div>
+        <div class="label">广告 ID</div>
+        <div class="desc">无广告 SDK，不关联任何广告标识符</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>消息的生命周期</h2>
+
+  <h3>1. 发送前（设备本地）</h3>
+  <ul>
+    <li>明文消息使用 <strong>double ratchet</strong> 协议（Signal Protocol 变体）加密</li>
+    <li>密钥存储在 <strong>Android Keystore / iOS Keychain</strong>，App 进程外无法读取</li>
+    <li>加密后的密文 blob 写入本地 SQLite 数据库 — <strong>数据库文件本身可能被直接读取，但消息体已是完全密文，无法还原</strong></li>
+  </ul>
+
+  <h3>2. 中继传输（relay.sottorelay.com）</h3>
+  <ul>
+    <li>中继收到的是密文信封，<strong>不解密、不审查、不记录内容</strong></li>
+    <li>信封有 TTL（默认 24 小时），过期后自动删除</li>
+    <li>接收方拉取并 ack 后，中继立即清除该副本</li>
+    <li>频道广播使用可配置的历史保留窗口（默认 7 天）</li>
+  </ul>
+
+  <h3>3. 接收后（设备本地）</h3>
+  <ul>
+    <li>私钥解密，明文仅存于本地加密数据库</li>
+    <li>不回传"已读"等任何状态到中继</li>
+    <li>用户可随时删除消息，删除操作只影响本地</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>"看完即焚"</strong>模式：发件方可设置消息 TTL 为负数（表示"保留到被取走"），接收方拉取后立即销毁；或设置极短 TTL（如 30 秒），中继到期自动清除。</p>
+  </div>
+</section>
+
+<section>
+  <h2>第三方服务</h2>
+
+  <details>
+    <summary>Cloudflare（中继基础设施）</summary>
+    <p>relay.sottorelay.com 运行在 Cloudflare Workers + R2 对象存储上。Cloudflare 作为基础设施工具，处理信封的存储和转发。Cloudflare 的 <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">隐私政策</a> 适用。Sotto 中继层不配置任何 IP 日志，不使用 Cloudflare Analytics。</p>
+  </details>
+
+  <details>
+    <summary>Google Play Billing（订阅支付）</summary>
+    <p>Pro 订阅通过 Google Play 结算。支付流程由 Google 完成，Sotto 仅收到一个 <code>purchaseToken</code>，发送到独立的权益校验服务验证。校验请求不包含用户身份信息，只有 packageName、productId、purchaseToken 和 entitlementId 四个字段。Google 的 <a href="https://policies.google.com/privacy" target="_blank">隐私政策</a> 适用。</p>
+  </details>
+
+  <details>
+    <summary>WebRTC（音视频通话）</summary>
+    <p>实时音视频通话使用 WebRTC 媒体层，信令（会话建立、密钥协商）通过 E2EE 加密的 double ratchet 通道交换。通话期间会产生 ICE 候选的网络请求（用于 P2P 打洞），STUN/TURN 服务器只处理 NAT 穿透数据包，不存储通话内容。</p>
+  </details>
+
+  <h3>明确排除的第三方</h3>
+  <p>Sotto <strong>不嵌入</strong>以下任何常见 SDK：</p>
+  <ul>
+    <li>❌ Firebase（Analytics / Crashlytics / Remote Config / Cloud Messaging）</li>
+    <li>❌ Sentry / Bugly / 腾讯 Bugly</li>
+    <li>❌ Adjust / AppsFlyer / Branch</li>
+    <li>❌ 字节增长 / 神策 / GrowingIO</li>
+    <li>❌ Facebook / AppsFlyer / Kochava</li>
+    <li>❌ 任何广告网络（AdMob / Unity Ads / AppLovin）</li>
+  </ul>
+</section>
+
+<section>
+  <h2>用户权利</h2>
+  <p>根据 GDPR、加州 CCPA、中国 PIPL 等适用法律，你拥有以下权利：</p>
+  <ul>
+    <li><strong>访问权</strong>：请求获取中继上与你相关的全部数据（密文信封列表）</li>
+    <li><strong>删除权</strong>：请求从中继上清除你的所有信封</li>
+    <li><strong>反对权</strong>：反对基于合法利益的数据处理（但 Sotto 实际上不做这类处理）</li>
+    <li><strong>数据可携权</strong>：请求以机器可读格式导出</li>
+  </ul>
+  <p>由于 Sotto 不持有任何用户身份信息，行使这些权利可能需要你提供中继可见的公开标识符（public key hash）。请通过下方联系方式提出请求。</p>
+</section>
+
+<section>
+  <h2>数据保留与删除</h2>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>数据类别</th><th>保留期限</th><th>删除方式</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>中继消息信封</td><td>默认 TTL 24 小时；频道历史 7 天（可配置）</td><td>TTL 到期自动清除 / 接收方 ack 后立即清除</td></tr>
+      <tr><td>本地消息数据库</td><td>用户手动删除 / 卸载 App / 重置密钥</td><td>应用内删除 / 卸载 App / 重置本地密钥</td></tr>
+      <tr><td>密钥材料</td><td>Android Keystore / iOS Keychain，设备级保护</td><td>卸载 App 自动清除 / 用户主动重置</td></tr>
+      <tr><td>订阅校验记录</td><td>权益到期后 7 天</td><td>权益过期 → 不再缓存</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>儿童隐私</h2>
+  <p>Sotto 不面向 13 岁以下儿童。App 不收集、存储或处理儿童的个人信息。如果我们发现 13 岁以下的用户使用了 Sotto，将按法律要求删除相关数据。</p>
+</section>
+
+<section>
+  <h2>安全措施</h2>
+  <ul>
+    <li><strong>传输中加密</strong>：所有 HTTP 请求使用 TLS 1.3；relay 证书固定（certificate pinning）</li>
+    <li><strong>静态加密</strong>：密钥由 Android Keystore / iOS Keychain 硬件保护；消息体在写入本地数据库前已完成 E2EE 加密</li>
+    <li><strong>前向保密</strong>：double ratchet 协议保证即使某个会话密钥泄露，历史消息仍安全</li>
+    <li><strong>签名校验</strong>：订阅权益回执使用 Ed25519 签名校验，不依赖传输层安全</li>
+  </ul>
+</section>
+
+<section>
+  <h2>政策变更</h2>
+  <p>本政策如有重大变更，我们将在 App 内推送通知，并更新页面顶部的"最后更新"日期。变更生效前，你仍可选择继续使用或卸载 App。</p>
+</section>
+
+<section>
+  <h2>联系我们</h2>
+  <p>对本隐私政策有任何疑问、建议或数据请求，请通过以下方式联系：</p>
+
+  <div class="contact-box">
+    <div class="row"><span>隐私政策邮箱</span><span>privacy@sotto.app</span></div>
+    <div class="row"><span>支持邮箱</span><span>support@sotto.app</span></div>
+    <div class="row"><span>法律请求</span><span>legal@sotto.app</span></div>
+    <div class="row"><span>公司</span><span>Sotto Technologies</span></div>
+    <div class="row"><span>注册地</span><span>中国·上海</span></div>
+  </div>
+
+  <p style="margin-top:20px;font-size:13px;color:var(--text-muted);">我们承诺在 30 天内回复你的数据请求。如你所在司法管辖区有更短的法定期限，我们将遵守当地法律。</p>
+</section>
+
+<footer>
+  <p>© 2026 Sotto Technologies. 保留所有权利。</p>
+  <div class="links">
+    <a href="/">Sotto 官网</a>
+    <a href="https://play.google.com/store/apps/details?id=com.sotto.sotto">Google Play</a>
+    <a href="https://github.com/sotto-app/sotto">GitHub</a>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
